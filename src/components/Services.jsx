@@ -1,11 +1,20 @@
 import { motion } from 'framer-motion';
-import * as Icons from 'lucide-react';
+import { Cpu, Search, Rocket, BrainCircuit, Code } from 'lucide-react';
 
 // Import service images
-import fractionalCtoImg from '../assets/images/service_fractional_cto.png';
-import dueDiligenceImg from '../assets/images/service_due_diligence.png';
-import ventureBuildingImg from '../assets/images/service_venture_building.png';
-import aiTransformationImg from '../assets/images/service_ai_transformation.png';
+import fractionalCtoImg from '../assets/images/service_fractional_cto.webp';
+import dueDiligenceImg from '../assets/images/service_due_diligence.webp';
+import ventureBuildingImg from '../assets/images/service_venture_building.webp';
+import aiTransformationImg from '../assets/images/service_ai_transformation.webp';
+
+// Map icon names to actual components for tree-shaking
+const iconMap = {
+    Cpu,
+    Search,
+    Rocket,
+    BrainCircuit,
+    Code,
+};
 
 const serviceImages = {
     "Fractional CTO": fractionalCtoImg,
@@ -51,7 +60,7 @@ export const Services = ({ services }) => {
                 {/* Services Grid - Visual Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     {services.map((service, index) => {
-                        const Icon = Icons[service.icon] || Icons.Code;
+                        const Icon = iconMap[service.icon] || Code;
                         const gradientClass = service.gradient || "from-indigo-500 to-purple-600";
                         const image = serviceImages[service.title];
 
@@ -70,6 +79,9 @@ export const Services = ({ services }) => {
                                         <img
                                             src={image}
                                             alt={service.title}
+                                            loading="lazy"
+                                            width="800"
+                                            height="600"
                                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                         />
                                     ) : (

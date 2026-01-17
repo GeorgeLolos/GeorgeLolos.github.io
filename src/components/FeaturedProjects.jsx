@@ -2,9 +2,12 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Building2, Rocket, Brain, TrendingUp, Briefcase } from 'lucide-react';
-import privateEquityImg from '../assets/private_equity.png';
-import bankingImg from '../assets/banking.png';
-import ventureBuildingImg from '../assets/venture_building.png';
+import privateEquityImg from '../assets/private_equity.webp';
+import bankingImg from '../assets/banking.webp';
+import ventureBuildingImg from '../assets/venture_building.webp';
+import aiDigitalImg from '../assets/ai_digital.webp';
+import digitalTransformationImg from '../assets/digital_transformation.webp';
+import advisoryImg from '../assets/advisory.webp';
 
 const categoryIcons = {
     "Private Equity": Building2,
@@ -19,6 +22,9 @@ const categoryImages = {
     "Private Equity": privateEquityImg,
     "Banking": bankingImg,
     "Venture Building": ventureBuildingImg,
+    "AI & Digital": aiDigitalImg,
+    "Digital Transformation": digitalTransformationImg,
+    "Advisory": advisoryImg,
 };
 
 export const FeaturedProjects = ({ projects }) => {
@@ -77,6 +83,9 @@ export const FeaturedProjects = ({ projects }) => {
                                             <img
                                                 src={bgImage}
                                                 alt={project.category}
+                                                loading="lazy"
+                                                width="800"
+                                                height="600"
                                                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                             />
                                         ) : (
