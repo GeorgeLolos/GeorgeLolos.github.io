@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 export const Hero = ({ profile }) => {
     return (
-        <section className="min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center pt-24 sm:pt-32 px-4 sm:px-6 lg:px-8">
+        <section className="min-h-[85vh] sm:min-h-[90vh] flex flex-col justify-center pt-20 sm:pt-28 px-4 sm:px-6 lg:px-8">
             <div className="w-full max-w-7xl mx-auto">
                 <div className="max-w-4xl">
                     <motion.div

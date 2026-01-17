@@ -24,16 +24,18 @@ function LandingPage() {
   return (
     <>
       <Hero profile={PROFILE} />
-      <div id="services">
+      <div id="services" className="py-16 sm:py-24 bg-zinc-50 dark:bg-zinc-900/30">
         <Services services={SERVICES} />
       </div>
-      <div id="case-studies">
+      <div id="case-studies" className="py-16 sm:py-24">
         <FeaturedProjects projects={FEATURED_PROJECTS} />
       </div>
-      <div id="experience">
+      <div id="experience" className="py-16 sm:py-24 bg-zinc-50 dark:bg-zinc-900/30">
         <Experience experience={EXPERIENCE} />
       </div>
-      <Contact profile={PROFILE} />
+      <div className="py-16 sm:py-24">
+        <Contact profile={PROFILE} />
+      </div>
     </>
   );
 }
@@ -93,7 +95,7 @@ function App() {
           {/* Logo / Name */}
           <Link
             to="/"
-            className="text-base sm:text-lg font-semibold tracking-tight text-zinc-900 dark:text-zinc-100"
+            className="text-xl sm:text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100"
           >
             {PROFILE.name}
           </Link>
@@ -103,12 +105,12 @@ function App() {
             <button onClick={() => scrollToSection('services')} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
               Services
             </button>
-            <Link to="/blog" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
-              Blog
-            </Link>
             <button onClick={() => scrollToSection('experience')} className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
               Experience
             </button>
+            <Link to="/blog" className="text-sm font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors">
+              Blog
+            </Link>
             <motion.a
               href={`mailto:${PROFILE.email}`}
               whileHover={{ scale: 1.05 }}
@@ -142,12 +144,12 @@ function App() {
                 <button onClick={() => scrollToSection('services')} className="block w-full text-left text-base font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">
                   Services
                 </button>
-                <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className="block w-full text-left text-base font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">
-                  Blog
-                </Link>
                 <button onClick={() => scrollToSection('experience')} className="block w-full text-left text-base font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">
                   Experience
                 </button>
+                <Link to="/blog" onClick={() => setMobileMenuOpen(false)} className="block w-full text-left text-base font-medium text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100">
+                  Blog
+                </Link>
                 <a
                   href={`mailto:${PROFILE.email}`}
                   className="flex items-center justify-center gap-2 px-4 py-3 rounded-full font-medium text-sm bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900"

@@ -2,6 +2,9 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Building2, Rocket, Brain, TrendingUp, Briefcase } from 'lucide-react';
+import privateEquityImg from '../assets/private_equity.png';
+import bankingImg from '../assets/banking.png';
+import ventureBuildingImg from '../assets/venture_building.png';
 
 const categoryIcons = {
     "Private Equity": Building2,
@@ -12,13 +15,10 @@ const categoryIcons = {
     "Advisory": Briefcase,
 };
 
-const categoryColors = {
-    "Private Equity": "from-blue-500 to-indigo-600",
-    "Banking": "from-emerald-500 to-teal-600",
-    "Venture Building": "from-orange-500 to-red-500",
-    "AI & Digital": "from-purple-500 to-pink-500",
-    "Digital Transformation": "from-cyan-500 to-blue-500",
-    "Advisory": "from-amber-500 to-orange-500",
+const categoryImages = {
+    "Private Equity": privateEquityImg,
+    "Banking": bankingImg,
+    "Venture Building": ventureBuildingImg,
 };
 
 export const FeaturedProjects = ({ projects }) => {
@@ -59,7 +59,7 @@ export const FeaturedProjects = ({ projects }) => {
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
                     {projects.map((project, index) => {
                         const CategoryIcon = categoryIcons[project.category] || TrendingUp;
-                        const gradientClass = categoryColors[project.category] || "from-zinc-500 to-zinc-600";
+                        const bgImage = categoryImages[project.category] || null;
 
                         return (
                             <motion.article
@@ -68,34 +68,53 @@ export const FeaturedProjects = ({ projects }) => {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                                className="group"
+                                className="group flex flex-col h-full bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden border border-zinc-200 dark:border-zinc-800 hover:shadow-xl hover:border-indigo-300 dark:hover:border-indigo-700 transition-all duration-300"
                             >
-                                <Link to={`/blog/${project.id}`} className="block h-full">
-                                    <div className="h-full flex flex-col bg-zinc-50 dark:bg-zinc-900/50 rounded-2xl lg:rounded-3xl border border-zinc-100 dark:border-zinc-800 hover:border-indigo-300 dark:hover:border-indigo-700 transition-all duration-300 hover:shadow-xl overflow-hidden">
-                                        {/* Header with gradient */}
-                                        <div className={`p-6 bg-gradient-to-br ${gradientClass}`}>
-                                            <div className="flex items-center justify-between mb-4">
-                                                <CategoryIcon className="w-8 h-8 text-white/80" strokeWidth={1.5} />
-                                                <span className="text-xs font-bold text-white/90 uppercase tracking-wide">
-                                                    {project.category}
-                                                </span>
+                                <Link to={`/blog/${project.id}`} className="flex flex-col h-full">
+                                    {/* Top: Image Area */}
+                                    <div className="relative h-48 sm:h-56 overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                                        {bgImage ? (
+                                            <img
+                                                src={bgImage}
+                                                alt={project.category}
+                                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            />
+                                        ) : (
+                                            <div className="w-full h-full bg-zinc-200 dark:bg-zinc-800 flex items-center justify-center">
+                                                <CategoryIcon className="w-12 h-12 text-zinc-400 dark:text-zinc-600" />
                                             </div>
-                                            <div className="text-sm font-bold text-white">
-                                                {project.outcome}
-                                            </div>
+                                        )}
+                                        {/* Category Tag (Floating) */}
+                                        <div className="absolute top-4 left-4 z-10">
+                                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm text-zinc-900 dark:text-zinc-100 shadow-sm border border-zinc-200/50 dark:border-zinc-700/50">
+                                                <CategoryIcon className="w-3.5 h-3.5" />
+                                                {project.category}
+                                            </span>
                                         </div>
+                                    </div>
 
-                                        {/* Content */}
-                                        <div className="flex-1 p-6">
-                                            <h3 className="text-lg sm:text-xl font-bold tracking-tight mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
-                                                {project.title}
-                                            </h3>
-                                            <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 mb-4">
-                                                {project.description}
-                                            </p>
-                                            <div className="flex items-center gap-2 text-sm font-medium text-indigo-600 dark:text-indigo-400">
-                                                Read Case Study
-                                                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                    {/* Bottom: Content Area */}
+                                    <div className="flex-1 p-6 flex flex-col">
+                                        {/* Title */}
+                                        <h3 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                                            {project.title}
+                                        </h3>
+
+                                        {/* Description */}
+                                        <p className="text-sm text-zinc-600 dark:text-zinc-400 line-clamp-3 mb-6 flex-1">
+                                            {project.description}
+                                        </p>
+
+                                        {/* Impact Section */}
+                                        <div className="pt-4 border-t border-zinc-100 dark:border-zinc-800">
+                                            <div className="text-xs font-semibold text-zinc-500 uppercase tracking-wider mb-1">
+                                                Impact & Results
+                                            </div>
+                                            <div className="flex items-center justify-between">
+                                                <span className="text-base font-bold text-indigo-600 dark:text-indigo-400">
+                                                    {project.outcome}
+                                                </span>
+                                                <ArrowRight className="w-4 h-4 text-zinc-400 group-hover:text-indigo-500 group-hover:translate-x-1 transition-all" />
                                             </div>
                                         </div>
                                     </div>
