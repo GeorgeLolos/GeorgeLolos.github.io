@@ -14,7 +14,7 @@ const categoryIcons = {
 
 
 
-export const BlogPost = ({ posts }) => {
+export default function BlogPost({ posts }) {
     const { id } = useParams();
     const post = posts.find(p => p.id === id);
 

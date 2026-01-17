@@ -1,44 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense, lazy } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
 import { Mail, Menu, X } from 'lucide-react';
-import { PROFILE, EXPERIENCE, SERVICES, FEATURED_PROJECTS, BLOG_POSTS } from './data';
-import { Hero } from './components/Hero';
-import { Services } from './components/Services';
-import { Experience } from './components/Experience';
-import { Contact } from './components/Contact';
-import { FeaturedProjects } from './components/FeaturedProjects';
-import { BlogList } from './pages/BlogList';
-import { BlogPost } from './pages/BlogPost';
-import { useSEO } from './hooks/useSEO';
+import { PROFILE, BLOG_POSTS } from './data';
 
-// Landing Page Component
-function LandingPage() {
-  // SEO for landing page
-  useSEO({
-    title: 'George Lolos | Fractional CTO & Engineering Leader | Ex-Google, Uber, Bain',
-    description: 'Engineering Executive with 15+ years leading at Google, Uber, Bain. Fractional CTO, Technical Due Diligence, AI Transformation & Venture Building expert serving Europe & Middle East.',
-    type: 'website'
-  });
+const LandingPage = lazy(() => import('./pages/LandingPage'));
+const BlogList = lazy(() => import('./pages/BlogList'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
-  return (
-    <>
-      <Hero profile={PROFILE} />
-      <div id="services" className="py-16 sm:py-24 bg-zinc-50 dark:bg-zinc-900/30">
-        <Services services={SERVICES} />
-      </div>
-      <div id="case-studies" className="py-16 sm:py-24">
-        <FeaturedProjects projects={FEATURED_PROJECTS} />
-      </div>
-      <div id="experience" className="py-16 sm:py-24 bg-zinc-50 dark:bg-zinc-900/30">
-        <Experience experience={EXPERIENCE} />
-      </div>
-      <div className="py-16 sm:py-24">
-        <Contact profile={PROFILE} />
-      </div>
-    </>
-  );
-}
+// Fallback loading component
+const PageLoader = () => (
+  <div className="flex items-center justify-center min-h-screen">
+    <div className="w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+  </div>
+);
+
+
 
 function App() {
   const { scrollYProgress } = useScroll();
@@ -164,11 +141,13 @@ function App() {
       </header>
 
       <main className="relative z-10 w-full">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/blog" element={<BlogList posts={BLOG_POSTS} />} />
-          <Route path="/blog/:id" element={<BlogPost posts={BLOG_POSTS} />} />
-        </Routes>
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/blog" element={<BlogList posts={BLOG_POSTS} />} />
+            <Route path="/blog/:id" element={<BlogPost posts={BLOG_POSTS} />} />
+          </Routes>
+        </Suspense>
       </main>
 
       <footer className="py-6 sm:py-8 text-center text-zinc-500 text-xs sm:text-sm border-t border-zinc-200 dark:border-zinc-800">
